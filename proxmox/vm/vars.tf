@@ -1,30 +1,24 @@
-/*  Available values for the following variables:
-      cloud_init_template = [debian11-cloud, centos7-cloud, ubuntu-20.04-cloud]
-      storage_pool = [local, local-lvm, sda, sdb, sdc, sdd]
-    All paths below are relevant to this Terraform module.
 
-    Proxmox expects IP in CIDR notation
-    TF local-exec expects IP without CIDR notation
-*/
+// This var is probably not needed
 variable "proxmox_host" {
-  default     = "10.10.50.20"
   type        = string
   description = "Proxmox host IP address"
 }
 
 variable "pvt_key_path" {
-  description = "Path to the private SSH key so `local-exec` provisioner can run Ansible playbooks"
+  default     = ""
+  description = "Path to a private SSH key for local-exec provisioner to execute Ansible playbooks"
   type        = string
 }
 
 variable "default_user" {
-  default     = "shakir"
   type        = string
-  description = "Default user"
+  description = "Default username"
 }
 
 variable "inventory_path" {
-  description = "Ansible inventory file, must be relative to the `root.tf` file"
+  default     = ""
+  description = "Relative path to Ansible inventory file from root.tf"
   type        = string
 }
 
@@ -34,40 +28,39 @@ variable "hostname" {
 }
 
 variable "target_node" {
-  default     = "pve"
-  description = "Name of Proxmox node where the resource will be provisioned"
+  description = "Name of the Proxmox node where the VM will be deployed"
   type        = string
 }
 
 variable "ip_address" {
-  description = "Host IPv4. Must be in CIDR notation, e.g. `10.20.30.99/24`"
+  description = "IPv4 static address e.g., 10.20.30.99"
   type        = string
 }
 
 variable "mac_address" {
-  description = "A valid unicast mac address, this is a Pfsense specfic setup"
+  default     = ""
+  description = "Valid unicast MAC address; ignore if you're not configuring DHCP static mapping in your gateway"
   type        = string
 }
 
 variable "default_gateway" {
-  default     = "10.10.50.10"
-  description = "Gateway IPv4"
+  description = "IPv4 gateway address - router's IP"
   type        = string
 }
 
 variable "cpu_cores" {
-  description = "The number of CPU cores per CPU socket to allocate to the VM. Usually 2x socket number"
+  description = "Number of CPU cores per CPU socket for VM allocation (typically 2x socket number)"
   type        = number
 }
 
 variable "cpu_sockets" {
-  description = "The number of CPU sockets to allocate to the VM"
+  description = "Number of CPU sockets allocated to the VM"
   type        = number
 }
 
 variable "memory" {
   type        = string
-  description = "The amount of memory to allocate to the VM in Megabytes"
+  description = "Amount of memory allocated to the VM in Megabytes"
 }
 
 variable "hdd_size" {
@@ -81,7 +74,7 @@ variable "storage_pool" {
 }
 
 variable "cloud_init_template" {
-  description = "Cloud-init templates available on the Proxmox node"
+  description = "Name of the cloud-init template available on the Proxmox node"
   type        = string
 }
 
@@ -95,17 +88,12 @@ variable "tags" {
   description = "VM tags, space separated"
 }
 
-variable "ansible_command" {
+variable "ansible_playbook" {
   type        = string
-  description = "`ansible-playbook` command. Path must be relative to the `root.tf` file"
-}
-
-variable "ip_without_cidr" {
-  type        = string
-  description = "Same IPv4 `ip_address` section but without the CIDR notation. Needed for the `local-exec` block"
+  description = "Absolute path to the Ansible playbook, relative to root.tf file"
 }
 
 variable "backup_enabled" {
   type        = number
-  description = "Specify whether to include the drive in backups"
+  description = "Indicate whether to include the VM's drive in backups."
 }

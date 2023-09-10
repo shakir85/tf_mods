@@ -31,7 +31,7 @@ resource "proxmox_vm_qemu" "vm_resource" {
   cores     = var.cpu_cores
   sockets   = var.cpu_sockets
   memory    = var.memory
-  ipconfig0 = "ip=${var.ip_address},ip6=dhcp,gw=${var.default_gateway}"
+  ipconfig0 = "ip=${var.ip_address}/24,ip6=dhcp,gw=${var.default_gateway}"
   tags      = var.tags
 
   network {
@@ -59,7 +59,7 @@ resource "proxmox_vm_qemu" "vm_resource" {
     inline = ["echo 'wait for ssh...'"]
 
     connection {
-      host        = var.ip_without_cidr
+      host        = var.ip_address
       type        = "ssh"
       user        = var.default_user
       private_key = file("${var.pvt_key_path}")
@@ -68,6 +68,6 @@ resource "proxmox_vm_qemu" "vm_resource" {
   # Run Ansible playbook
   # Pass playbook path as a variable
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${var.inventory_path} ${var.ansible_command} || true"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${var.inventory_path} ${var.ansible_playbook} || true"
   }
 }
