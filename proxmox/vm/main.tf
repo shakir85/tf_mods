@@ -12,6 +12,10 @@ terraform {
   }
 }
 
+variable ip_with_cidr {
+  format("%s/24", var.ip_address)
+}
+
 resource "proxmox_vm_qemu" "vm_resource" {
 
   name        = var.hostname
@@ -31,7 +35,7 @@ resource "proxmox_vm_qemu" "vm_resource" {
   cores     = var.cpu_cores
   sockets   = var.cpu_sockets
   memory    = var.memory
-  ipconfig0 = "ip=${var.ip_address}/24,ip6=dhcp,gw=${var.default_gateway}"
+  ipconfig0 = "ip=${var.ip_with_cidr},ip6=dhcp,gw=${var.default_gateway}"
   tags      = var.tags
 
   network {
