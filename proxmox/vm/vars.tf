@@ -2,13 +2,6 @@
  Input Variables
 */
 
-
-// This var is probably not needed
-variable "proxmox_host" {
-  type        = string
-  description = "Proxmox host IP address"
-}
-
 variable "default_user" {
   type        = string
   description = "Default username"
