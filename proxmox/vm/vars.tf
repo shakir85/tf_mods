@@ -5,21 +5,9 @@ variable "proxmox_host" {
   description = "Proxmox host IP address"
 }
 
-variable "pvt_key_path" {
-  default     = ""
-  description = "Path to a private SSH key for local-exec provisioner to execute Ansible playbooks"
-  type        = string
-}
-
 variable "default_user" {
   type        = string
   description = "Default username"
-}
-
-variable "inventory_path" {
-  default     = ""
-  description = "Relative path to Ansible inventory file from root.tf"
-  type        = string
 }
 
 variable "hostname" {
@@ -79,18 +67,15 @@ variable "cloud_init_template" {
 }
 
 variable "vm_description" {
+  default     = ""
   type        = string
   description = "VM description"
 }
 
 variable "tags" {
+  default     = ""
   type        = string
   description = "VM tags, space separated"
-}
-
-variable "ansible_playbook" {
-  type        = string
-  description = "Absolute path to the Ansible playbook, relative to root.tf file"
 }
 
 variable "backup_enabled" {

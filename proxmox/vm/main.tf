@@ -54,20 +54,4 @@ resource "proxmox_vm_qemu" "vm_resource" {
       network,
     ]
   }
-
-  provisioner "remote-exec" {
-    inline = ["echo 'wait for ssh...'"]
-
-    connection {
-      host        = var.ip_address
-      type        = "ssh"
-      user        = var.default_user
-      private_key = file("${var.pvt_key_path}")
-    }
-  }
-  # Run Ansible playbook
-  # Pass playbook path as a variable
-  provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${var.inventory_path} ${var.ansible_playbook} || true"
-  }
 }
