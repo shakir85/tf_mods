@@ -1,3 +1,7 @@
+/*
+ Input Variables
+*/
+
 
 // This var is probably not needed
 variable "proxmox_host" {
@@ -69,7 +73,7 @@ variable "cloud_init_template" {
 variable "vm_description" {
   default     = ""
   type        = string
-  description = "VM description"
+  description = "VM description. You can use heredoc for multiline description"
 }
 
 variable "tags" {
