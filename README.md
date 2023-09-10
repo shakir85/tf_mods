@@ -1,2 +1,2 @@
-# tf_mods
+# Terraform Modules
 My Terraform modules
