@@ -3,6 +3,11 @@
  Input Variables
 */
 
+variable "target_node" {
+  type = string
+  description = "Proxmox node name where the container will be provisioned"
+}
+
 variable "container_template" {
   type        = string
   description = "LXC container template"
