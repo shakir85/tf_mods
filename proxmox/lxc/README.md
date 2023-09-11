@@ -6,7 +6,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | n/a |
+| <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 2.9.11 |
 
 ## Modules
 
