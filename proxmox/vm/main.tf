@@ -30,7 +30,7 @@ resource "proxmox_vm_qemu" "vm_resource" {
   # full_clone = false
 
   os_type   = "cloud-init"
-  clone     = var.cloud_init_template
+  clone     = var.cloud_init_clone
   cpu       = "host"
   cores     = var.cpu_cores
   sockets   = var.cpu_sockets
