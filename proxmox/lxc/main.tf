@@ -6,13 +6,17 @@ terraform {
   }
 }
 
+locals {
+  ip_with_cidr = format("%s/24", var.ip_address)
+}
+
 resource "proxmox_lxc" "basic" {
 
   tags            = var.tags
   swap            = 0
   start           = true
   onboot          = true
-  hostname        = var.container_name
+  hostname        = var.hostname
   password        = var.lxcpwd
   ostemplate      = "local:vztmpl/${var.container_template}"
   target_node     = "pve"
@@ -31,7 +35,7 @@ resource "proxmox_lxc" "basic" {
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = var.ip_address
+    ip     = var.ip_with_cidr
     gw     = var.default_gateway
   }
 
