@@ -1,6 +1,8 @@
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | 2.9.11 |
 
 ## Providers
 
@@ -16,7 +18,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [proxmox_lxc.basic](https://registry.terraform.io/providers/telmate/proxmox/latest/docs/resources/lxc) | resource |
+| [proxmox_lxc.basic](https://registry.terraform.io/providers/telmate/proxmox/2.9.11/docs/resources/lxc) | resource |
 
 ## Inputs
 
@@ -33,6 +35,7 @@ No modules.
 | <a name="input_ssh_pub_key"></a> [ssh\_pub\_key](#input\_ssh\_pub\_key) | Multi-line string of SSH public keys that will be added to the container. Can be defined using heredoc syntax. | `string` | n/a | yes |
 | <a name="input_storage_pool"></a> [storage\_pool](#input\_storage\_pool) | A string containing the volume , directory, or device to be mounted into the container (at the path specified by mountpoint attribute: `mp`). E.g. `local-lvm`, `local-zfs`, `local` etc. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags for the container. This is only meta information. | `string` | `""` | no |
+| <a name="input_target_node"></a> [target\_node](#input\_target\_node) | Proxmox node name where the container will be provisioned | `string` | n/a | yes |
 | <a name="input_unprivileged"></a> [unprivileged](#input\_unprivileged) | A boolean that makes the container run as an unprivileged user. Default is false. | `bool` | `false` | no |
 
 ## Outputs

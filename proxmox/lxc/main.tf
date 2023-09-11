@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     proxmox = {
-      source = "telmate/proxmox"
+      source  = "telmate/proxmox"
       version = "2.9.11"
     }
   }
@@ -20,7 +20,7 @@ resource "proxmox_lxc" "basic" {
   hostname        = var.hostname
   password        = var.lxcpwd
   ostemplate      = "local:vztmpl/${var.container_template}"
-  target_node     = "pve"
+  target_node     = var.target_node
   unprivileged    = var.unprivileged
   ssh_public_keys = var.ssh_pub_key
 
