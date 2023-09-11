@@ -18,7 +18,7 @@ variable "target_node" {
 }
 
 variable "ip_address" {
-  description = "IPv4 static address e.g., 10.20.30.99"
+  description = "The IPv4 address of the network interface. Can be a static IPv4 address, `dhcp`, or `manual`"
   type        = string
 }
 
@@ -58,8 +58,8 @@ variable "storage_pool" {
   type        = string
 }
 
-variable "cloud_init_template" {
-  description = "Name of the cloud-init template available on the Proxmox node"
+variable "cloud_init_clone" {
+  description = "Name of the cloud-init clone available on the Proxmox node"
   type        = string
 }
 

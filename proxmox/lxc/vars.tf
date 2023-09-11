@@ -1,46 +1,44 @@
-variable "proxmox_host" {
-  default = "10.10.50.20"
-}
+
+/*
+ Input Variables
+*/
 
 variable "container_template" {
-  default     = "debian-12-standard_12.0-1_amd64.tar.zst"
-  description = <<EOT
-    Available LXC templates:
-      *  ubuntu-22.04-standard_22.04-1_amd64.tar.gz
-      *  alpine-3.18-default_20230607_amd64.tar.xz
-      *  debian-12-standard_12.0-1_amd64.tar.zst
-    EOT
-}
-
-variable "container_name" {
-
+  type        = string
+  description = "LXC container template"
 }
 
 variable "hdd_size" {
-  description = "HDD size in Gb. For example '8G'"
+  type        = string
+  description = "Size of the underlying volume. Must end in T, G, M, or K (e.g. '1T', '1G', '1024M' , '1048576K'). Note that this is a read only value"
 }
 
 variable "storage_pool" {
-  description = "Available pools: [local, local-lvm, sda, sdb, sdc, sdd]"
+  type        = string
+  description = "A string containing the volume , directory, or device to be mounted into the container (at the path specified by mountpoint attribute: `mp`). E.g. `local-lvm`, `local-zfs`, `local` etc."
 }
 
 variable "ip_address" {
-  description = "IP with CIDR notation. For example 10.20.30.40/24"
+  type        = string
+  description = "The IPv4 address of the network interface. Can be a static IPv4 address, 'dhcp', or 'manual'"
 }
 
 # Use env var, must export TF_VAR_lxcpwd=<passwordValue>
 variable "lxcpwd" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "Sets the root password inside the container"
 }
 
 variable "description" {
-  type    = string
-  default = "No description provided."
+  type        = string
+  default     = ""
+  description = "Sets the container description seen in the Proxmox web interface"
 }
 
 variable "hostname" {
-  type = string
+  type        = string
+  description = "Specifies the host name of the container. You can use FQDN. It is going to be recorded in /etc/hosts"
 }
 
 variable "memory" {
@@ -49,21 +47,25 @@ variable "memory" {
 }
 
 variable "default_gateway" {
-  type = string
+  type        = string
+  description = "The IPv4 address belonging to the network interface's default gateway"
 }
 
-# Use env var, must export TF_VAR_pub_key=<passwordValue>
+# Use env var, must export TF_VAR_ssh_pub_key=<passwordValue>
 variable "ssh_pub_key" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "Multi-line string of SSH public keys that will be added to the container. Can be defined using heredoc syntax."
 }
 
 variable "tags" {
-  type    = string
-  default = "none"
+  type        = string
+  default     = ""
+  description = "Tags for the container. This is only meta information."
 }
 
 variable "unprivileged" {
-  type    = bool
-  default = false
+  type        = bool
+  default     = false
+  description = "A boolean that makes the container run as an unprivileged user. Default is false."
 }
