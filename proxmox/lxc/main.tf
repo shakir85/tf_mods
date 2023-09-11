@@ -36,7 +36,7 @@ resource "proxmox_lxc" "basic" {
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = var.ip_with_cidr
+    ip     = local.ip_with_cidr
     gw     = var.default_gateway
   }
 
