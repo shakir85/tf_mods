@@ -4,7 +4,7 @@
 */
 
 variable "target_node" {
-  type = string
+  type        = string
   description = "Proxmox node name where the container will be provisioned"
 }
 
