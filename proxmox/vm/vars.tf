@@ -79,3 +79,15 @@ variable "backup_enabled" {
   type        = number
   description = "Indicate whether to include the VM's drive in backups."
 }
+
+variable "network_interface" {
+  default = "eth0"
+  type = string
+  description = "The name of the network interface as seen from inside the container (e.g. `eth0`) **(required))**"
+}
+
+variable "network_bridge" {
+  default "vmbr0"
+  type = string
+  description = "The bridge to attach the network interface to (e.g. `vmbr0`)."
+}
