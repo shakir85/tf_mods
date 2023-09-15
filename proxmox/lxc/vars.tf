@@ -13,6 +13,11 @@ variable "container_template" {
   description = "LXC container template"
 }
 
+variable "container_template_storage" {
+  type = string
+  description = "Proxmox storage name where LXC template is located"
+}
+
 variable "hdd_size" {
   type        = string
   description = "Size of the underlying volume. Must end in T, G, M, or K (e.g. '1T', '1G', '1024M' , '1048576K'). Note that this is a read only value"

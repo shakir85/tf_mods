@@ -19,7 +19,7 @@ resource "proxmox_lxc" "basic" {
   onboot          = true
   hostname        = var.hostname
   password        = var.lxcpwd
-  ostemplate      = "local:vztmpl/${var.container_template}"
+  ostemplate      = "${var.container_template_storage}:vztmpl/${var.container_template}"
   target_node     = var.target_node
   unprivileged    = var.unprivileged
   ssh_public_keys = var.ssh_pub_key
@@ -27,8 +27,13 @@ resource "proxmox_lxc" "basic" {
 
   // Terraform will crash without rootfs defined
   rootfs {
-    // To let LXC containers use 'local' pool storage, run this command on the host:
-    // pvesm set local --content backup,images,iso,rootdir,snippets,vztmpl
+    // By default, LXC containers can't utilize the `local` storage pool.
+    // Allow LXC containers to use the 'local' storage pool on Proxmox by running this command
+    // on the Proxmox node:
+    //   pvesm set <pool> --content vztmpl
+    //   pvesm set local --content <storageType>
+    // For other options with `--content`, refer to "Common Storage Properties":
+    //  https://pve.proxmox.com/wiki/Storage
     storage = var.storage_pool
     size    = var.hdd_size
   }
