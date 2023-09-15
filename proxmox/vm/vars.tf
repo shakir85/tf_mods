@@ -24,7 +24,7 @@ variable "ip_address" {
 
 variable "mac_address" {
   default     = ""
-  description = "Valid unicast MAC address; ignore if you're not configuring DHCP static mapping in your gateway"
+  description = "Override the randomly generated MAC Address for the VM. Requires the MAC Address be Unicast. Ignore if you're not configuring DHCP static mapping in your gateway"
   type        = string
 }
 
@@ -77,17 +77,22 @@ variable "tags" {
 
 variable "backup_enabled" {
   type        = number
-  description = "Indicate whether to include the VM's drive in backups."
+  description = "Indicate whether to include the VM's drive in backups"
 }
 
-variable "network_interface" {
-  default = "eth0"
+variable "network_model" {
+  default = "virtio"
   type = string
-  description = "The name of the network interface as seen from inside the container (e.g. `eth0`) **(required))**"
+  description = <<EOT
+  **Required** - Network Card Model. The virtio model provides the best performance with very low CPU overhead. 
+  If your guest does not support this driver, it is usually best to use `e1000`. 
+  Options: `e1000`, `e1000-82540em`, `e1000-82544gc`, `e1000-82545em`, `i82551`, 
+  `i82557b`, `i82559er`, `ne2k_isa`, `ne2k_pci`, `pcnet`, `rtl8139`, `virtio`, `vmxnet3`
+  EOT
 }
 
 variable "network_bridge" {
   default "vmbr0"
   type = string
-  description = "The bridge to attach the network interface to (e.g. `vmbr0`)."
+  description = "Bridge to which the network device should be attached. The Proxmox VE standard bridge is called `vmbr0`"
 }

@@ -39,8 +39,8 @@ resource "proxmox_vm_qemu" "vm_resource" {
   tags      = var.tags
 
   network {
-    bridge  = "vmbr0"
-    model   = "virtio"
+    bridge  = var.network_bridge
+    model   = var.network_model
     macaddr = var.mac_address
   }
 

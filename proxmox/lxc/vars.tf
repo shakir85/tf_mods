@@ -79,3 +79,15 @@ variable "unprivileged" {
   default     = false
   description = "A boolean that makes the container run as an unprivileged user. Default is false."
 }
+
+variable "network_interface" {
+  default = "eth0"
+  type = string
+  description = "The name of the network interface as seen from inside the container (e.g. `eth0`) **(required))**"
+}
+
+variable "network_bridge" {
+  default "vmbr0"
+  type = string
+  description = "The bridge to attach the network interface to (e.g. `vmbr0`)."
+}
