@@ -81,8 +81,8 @@ variable "backup_enabled" {
 }
 
 variable "network_model" {
-  default = "virtio"
-  type = string
+  default     = "virtio"
+  type        = string
   description = <<EOT
   **Required** - Network Card Model. The virtio model provides the best performance with very low CPU overhead. 
   If your guest does not support this driver, it is usually best to use `e1000`. 
@@ -92,7 +92,7 @@ variable "network_model" {
 }
 
 variable "network_bridge" {
-  default "vmbr0"
-  type = string
+  default     = "vmbr0"
+  type        = string
   description = "Bridge to which the network device should be attached. The Proxmox VE standard bridge is called `vmbr0`"
 }

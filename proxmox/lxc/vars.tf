@@ -14,7 +14,7 @@ variable "container_template" {
 }
 
 variable "container_template_storage" {
-  type = string
+  type        = string
   description = "Proxmox storage name where LXC template is located"
 }
 
@@ -81,13 +81,13 @@ variable "unprivileged" {
 }
 
 variable "network_interface" {
-  default = "eth0"
-  type = string
+  default     = "eth0"
+  type        = string
   description = "The name of the network interface as seen from inside the container (e.g. `eth0`) **(required))**"
 }
 
 variable "network_bridge" {
-  default "vmbr0"
-  type = string
+  default     = "vmbr0"
+  type        = string
   description = "The bridge to attach the network interface to (e.g. `vmbr0`)."
 }
