@@ -12,10 +12,6 @@ terraform {
   }
 }
 
-locals {
-  ip_with_cidr = format("%s/24", var.ip_address)
-}
-
 resource "proxmox_vm_qemu" "vm_resource" {
 
   name        = var.hostname
@@ -27,7 +23,7 @@ resource "proxmox_vm_qemu" "vm_resource" {
   # Read this doc, and understand its implications, before enabling full_clone:
   # https://pve.proxmox.com/pve-docs/chapter-qm.html#qm_copy_and_clone
   # When this attribute is set to 'false', Proxmox will do linked clones.
-  # full_clone = false
+  full_clone = false
 
   os_type   = "cloud-init"
   clone     = var.cloud_init_clone
@@ -35,7 +31,7 @@ resource "proxmox_vm_qemu" "vm_resource" {
   cores     = var.cpu_cores
   sockets   = var.cpu_sockets
   memory    = var.memory
-  ipconfig0 = "ip=${local.ip_with_cidr},ip6=dhcp,gw=${var.default_gateway}"
+  ipconfig0 = "ip=${var.ip_address},ip6=dhcp,gw=${var.default_gateway}"
   tags      = var.tags
 
   network {

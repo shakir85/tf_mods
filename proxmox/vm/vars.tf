@@ -1,5 +1,6 @@
 /*
  Input Variables
+ Most description text taken from the `telmate/proxmox` docs.
 */
 
 variable "default_user" {
@@ -18,13 +19,14 @@ variable "target_node" {
 }
 
 variable "ip_address" {
-  description = "The IPv4 address of the network interface. Can be a static IPv4 address, `dhcp`, or `manual`"
+  default     = "dhcp"
+  description = "The IPv4 address of the network interface. Values can be: a static IPv4 address in CIDR notation (e.g. 10.40.60.83/24), `dhcp` (default if no IP address provided)"
   type        = string
 }
 
 variable "mac_address" {
   default     = ""
-  description = "Override the randomly generated MAC Address for the VM. Requires the MAC Address be Unicast. Ignore if you're not configuring DHCP static mapping in your gateway"
+  description = "Override the randomly generated MAC Address for the VM. Requires the MAC Address be Unicast. Ignore if you're not configuring DHCP static mapping (i.e. private static IPv4) in your gateway"
   type        = string
 }
 
