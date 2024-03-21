@@ -51,8 +51,8 @@ variable "memory" {
 }
 
 variable "hdd_size" {
-  type        = string
-  description = "The disk size. Must adhere to the format specified by the regex [GMK], where G stands for Gigabytes, M for Megabytes, and K for Kilobytes, such as 128G"
+  type        = number
+  description = "Disk size in gigabytes"
 }
 
 variable "storage_pool" {
@@ -78,8 +78,13 @@ variable "tags" {
 }
 
 variable "backup_enabled" {
-  type        = number
+  type        = bool
   description = "Indicate whether to include the VM's drive in backups"
+}
+
+variable "enable_guest_agent" {
+  type        = number
+  description = "Enable Qemu guest agent. Note, you must run the qemu-guest-agent daemon in the guest OS for this to have any effect."
 }
 
 variable "network_model" {
