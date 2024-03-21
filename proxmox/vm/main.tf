@@ -7,7 +7,7 @@ terraform {
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
-      version = "2.9.11"
+      version = "3.0.1-rc1"
     }
   }
 }
@@ -17,7 +17,7 @@ resource "proxmox_vm_qemu" "vm_resource" {
   name        = var.hostname
   desc        = var.vm_description
   target_node = var.target_node
-  agent       = 0
+  agent       = var.enable_guest_agent
   onboot      = true
 
   # Read this doc, and understand its implications, before enabling full_clone:
@@ -40,13 +40,16 @@ resource "proxmox_vm_qemu" "vm_resource" {
     macaddr = var.mac_address
   }
 
-  disk {
-    type     = "scsi"
-    storage  = var.storage_pool
-    size     = var.hdd_size
-    slot     = 0
-    iothread = 0
-    backup   = var.backup_enabled
+  disks {
+    scsi {
+      scsi0 {
+        disk {
+          storage = var.storage_pool
+          size    = var.hdd_size
+          backup  = var.backup_enabled
+        }
+      }
+    }
   }
 
   lifecycle {
